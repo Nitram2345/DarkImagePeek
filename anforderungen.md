@@ -24,7 +24,7 @@ Bilder auf Webseiten, die zu dunkel sind und Details verschlucken (Ausgangsfall:
 
 | ID | Anforderung | Status |
 |---|---|---|
-| N1 | Läuft in Chrome und Firefox (ab 109) aus einer Codebasis (Manifest V3) | ✅ |
+| N1 | Läuft in Chrome und Firefox (ab 142) aus einer Codebasis (Manifest V3) | ✅ |
 | N2 | Minimale Berechtigungen: nur `activeTab` und `scripting` | ✅ |
 | N3 | Keine Datensammlung, keine Netzwerkzugriffe | ✅ |
 | N4 | Funktioniert auch auf Seiten mit strenger CSP (Inline-Styles gesperrt) | ✅ |
@@ -45,6 +45,6 @@ Bilder auf Webseiten, die zu dunkel sind und Details verschlucken (Ausgangsfall:
 
 ## Offene Punkte
 
-- Firefox-ID (`darkimagepeek@local`) vor dem ersten AMO-Upload final festlegen.
+- GitHub Pages aktivieren: Settings → Pages → Source „GitHub Actions“ (Hilfeseite aus `public/`).
 - Store-Texte und Screenshots erstellen.
 - Manueller Test der installierten Erweiterung in Chrome und Firefox sowie des Bookmarklets per echtem Lesezeichen-Klick.

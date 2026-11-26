@@ -1,5 +1,5 @@
 @echo off
-rem Builds dist\bookmarklet.html and dist\darkimagepeek-<version>.zip (Chrome + Firefox).
+rem Updates bookmarklet link in public\index.html, builds dist\darkimagepeek-<version>.zip (Chrome + Firefox).
 cd /d "%~dp0"
 node build-bookmarklet.js || exit /b 1
 for /f "delims=" %%v in ('node -p "require('./manifest.json').version"') do set VER=%%v

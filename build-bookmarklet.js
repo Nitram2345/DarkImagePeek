@@ -1,15 +1,12 @@
-// Turns bookmarklet.js into dist/bookmarklet.html with a drag-to-bookmarks link.
+// Injects bookmarklet.js as drag-to-bookmarks link into public/index.html (the <a id="bm"> href).
 const fs = require('fs');
 const src = fs.readFileSync(__dirname + '/bookmarklet.js', 'utf8')
   .split('\n').filter(l => !/^\s*\/\//.test(l)).join('\n'); // drop full-line comments
 new Function(src); // syntax check, throws on error
-const href = 'javascript:' + encodeURIComponent(src);
-fs.mkdirSync(__dirname + '/dist', { recursive: true });
-fs.writeFileSync(__dirname + '/dist/bookmarklet.html', `<!doctype html><meta charset="utf-8"><title>DarkImagePeek Bookmarklet</title>
-<body style="font:16px system-ui,sans-serif;max-width:600px;margin:40px auto;padding:0 16px">
-<h1>DarkImagePeek</h1>
-<p>Link in die Lesezeichenleiste ziehen:</p>
-<p><a href="${href.replace(/"/g, '%22')}" style="display:inline-block;padding:8px 16px;background:#1d1d24;color:#ffd84a;border-radius:6px;text-decoration:none">🍏 DarkImagePeek</a></p>
-<p>Dann auf einer Seite mit Bildern auf das Lesezeichen klicken. Nochmal klicken schließt das Panel.</p>
-</body>`);
-console.log('dist/bookmarklet.html written,', href.length, 'chars');
+const href = ('javascript:' + encodeURIComponent(src)).replace(/"/g, '%22');
+const page = __dirname + '/public/index.html';
+const html = fs.readFileSync(page, 'utf8');
+const out = html.replace(/(<a id="bm"[^>]*?href=")[^"]*"/, (_, pre) => pre + href + '"');
+if (out === html && !html.includes(href)) throw new Error('<a id="bm" href="..."> not found in public/index.html');
+fs.writeFileSync(page, out);
+console.log('public/index.html: bookmarklet updated,', href.length, 'chars');

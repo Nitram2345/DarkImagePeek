@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DarkImagePeek – Hilfe</title>
+<meta name="description" content="DarkImagePeek hellt dunkle Bilder auf Webseiten live auf: Gamma, Helligkeit und Kontrast. Als Browser-Erweiterung oder Bookmarklet.">
+<style>
+  :root { --bg: #fafaf7; --fg: #1d1d24; --muted: #5c5c66; --card: #fff; --line: #e2e2dc; --accent: #ffd84a; --accent-fg: #1d1d24; --code: #f0efe8; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #16161b; --fg: #ececf0; --muted: #a0a0ab; --card: #1f1f26; --line: #33333d; --code: #2a2a33; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 system-ui, sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
+  header svg { flex: none; }
+  h1 { margin: 0; font-size: 2rem; }
+  h2 { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+  .lead { color: var(--muted); font-size: 1.1rem; }
+  a { color: inherit; }
+  code, kbd { background: var(--code); padding: 1px 6px; border-radius: 4px; font-size: .9em; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; margin: 16px 0; }
+  .bm { display: inline-block; padding: 10px 20px; background: var(--fg); color: var(--accent); border-radius: 8px; text-decoration: none; font-weight: 600; cursor: grab; }
+  button { font: inherit; padding: 8px 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); color: var(--fg); cursor: pointer; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  nav a { margin-right: 12px; }
+  footer { margin-top: 48px; color: var(--muted); font-size: .9rem; }
+</style>
+</head>
+<body>
+<main>
+<header>
+  <svg width="64" height="64" viewBox="0 0 128 128" aria-hidden="true">
+    <defs>
+      <clipPath id="apple"><path id="body" d="M64 42 C52 31 22 31 18 60 C14 88 36 120 52 118 C58 117 60 113 64 113 C68 113 70 117 76 118 C92 120 114 88 110 60 C106 31 76 31 64 42 Z"/></clipPath>
+      <linearGradient id="light" x1="0" y1="0" x2="1" y2="1"><stop offset="0.45" stop-color="#fff6c2"/><stop offset="1" stop-color="#ffc93c"/></linearGradient>
+    </defs>
+    <path d="M64 42 C63 32 66 22 73 15" fill="none" stroke="#5a3a22" stroke-width="6" stroke-linecap="round"/>
+    <path d="M70 30 C74 14 92 9 100 11 C96 27 80 35 70 30 Z" fill="#3cb04a" stroke="#1d1d24" stroke-width="3" stroke-linejoin="round"/>
+    <g clip-path="url(#apple)"><rect width="128" height="128" fill="url(#light)"/><polygon points="0,0 120,0 8,128 0,128" fill="#1d1d24"/></g>
+    <use href="#body" fill="none" stroke="#1d1d24" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M92 70 C96 82 92 96 84 104" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+  </svg>
+  <h1>DarkImagePeek</h1>
+</header>
+<p class="lead">Zu dunkle Bilder auf Webseiten live aufhellen – etwa die schwarze Jacke auf einem Shop-Foto, bei der man keine Details erkennt.</p>
+<nav><a href="#bookmarklet">Bookmarklet</a><a href="#erweiterung">Erweiterung</a><a href="#bedienung">Bedienung</a><a href="#faq">Fragen</a></nav>
+
+<h2 id="bookmarklet">Schnellstart: Bookmarklet</h2>
+<p>Ohne Installation, in jedem Browser: Das Bookmarklet ist ein Lesezeichen, das beim Anklicken ein kleines Regler-Panel auf der aktuellen Seite öffnet.</p>
+<div class="card">
+  <p><strong>Diesen Knopf in die Lesezeichenleiste ziehen:</strong></p>
+  <!-- href is filled in by build-bookmarklet.js (make.bat) -->
+  <p><a id="bm" class="bm" href="javascript:(()%20%3D%3E%20%7B%0A%20%20const%20ID%20%3D%20'icf-panel'%3B%0A%20%20const%20old%20%3D%20document.getElementById(ID)%3B%0A%20%20if%20(old)%20%7B%20old.remove()%3B%20return%3B%20%7D%0A%0A%20%20const%20root%20%3D%20document.documentElement%3B%0A%20%20const%20rs%20%3D%20root.style%3B%0A%0A%20%20if%20(!window.__icfSheet)%20%7B%0A%20%20%20%20const%20sheet%20%3D%20new%20CSSStyleSheet()%3B%0A%20%20%20%20sheet.replaceSync('img%2C%20picture%2C%20video%20%7B%20filter%3A%20var(--icf-g%2C)%20brightness(var(--icf-b%2C%20100%25))%20contrast(var(--icf-c%2C%20100%25))%20!important%3B%20%7D')%3B%0A%20%20%20%20document.adoptedStyleSheets%20%3D%20%5B...document.adoptedStyleSheets%2C%20sheet%5D%3B%0A%20%20%20%20window.__icfSheet%20%3D%20sheet%3B%0A%20%20%7D%0A%0A%20%20function%20setVars(gv%2C%20bv%2C%20cv)%20%7B%0A%20%20%20%20rs.setProperty('--icf-b'%2C%20bv%20%2B%20'%25')%3B%0A%20%20%20%20rs.setProperty('--icf-c'%2C%20cv%20%2B%20'%25')%3B%0A%20%20%20%20rs.setProperty('--icf-gv'%2C%20gv)%3B%0A%20%20%20%20if%20(gv%20%3D%3D%201)%20%7B%20rs.removeProperty('--icf-g')%3B%20return%3B%20%7D%0A%20%20%20%20let%20svg%20%3D%20document.getElementById('icf-svg')%3B%0A%20%20%20%20if%20(!svg)%20%7B%0A%20%20%20%20%20%20const%20NS%20%3D%20'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3B%0A%20%20%20%20%20%20svg%20%3D%20document.createElementNS(NS%2C%20'svg')%3B%0A%20%20%20%20%20%20svg.id%20%3D%20'icf-svg'%3B%0A%20%20%20%20%20%20svg.setAttribute('width'%2C%20'0')%3B%0A%20%20%20%20%20%20svg.setAttribute('height'%2C%20'0')%3B%0A%20%20%20%20%20%20svg.setAttribute('aria-hidden'%2C%20'true')%3B%0A%20%20%20%20%20%20svg.style.position%20%3D%20'absolute'%3B%0A%20%20%20%20%20%20const%20filter%20%3D%20document.createElementNS(NS%2C%20'filter')%3B%0A%20%20%20%20%20%20filter.id%20%3D%20'icf-gamma'%3B%0A%20%20%20%20%20%20filter.setAttribute('color-interpolation-filters'%2C%20'sRGB')%3B%0A%20%20%20%20%20%20const%20ct%20%3D%20document.createElementNS(NS%2C%20'feComponentTransfer')%3B%0A%20%20%20%20%20%20for%20(const%20ch%20of%20%5B'R'%2C%20'G'%2C%20'B'%5D)%20%7B%0A%20%20%20%20%20%20%20%20const%20f%20%3D%20document.createElementNS(NS%2C%20'feFunc'%20%2B%20ch)%3B%0A%20%20%20%20%20%20%20%20f.setAttribute('type'%2C%20'gamma')%3B%0A%20%20%20%20%20%20%20%20ct.append(f)%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20filter.append(ct)%3B%0A%20%20%20%20%20%20svg.append(filter)%3B%0A%20%20%20%20%20%20root.append(svg)%3B%0A%20%20%20%20%7D%0A%20%20%20%20for%20(const%20f%20of%20svg.querySelectorAll('%5Btype%3Dgamma%5D'))%20f.setAttribute('exponent'%2C%201%20%2F%20gv)%3B%0A%20%20%20%20rs.setProperty('--icf-g'%2C%20'url(%23icf-gamma)')%3B%0A%20%20%7D%0A%0A%20%20const%20host%20%3D%20document.createElement('div')%3B%0A%20%20host.id%20%3D%20ID%3B%0A%20%20host.style.cssText%20%3D%20'position%3Afixed%3Btop%3A12px%3Bright%3A12px%3Bz-index%3A2147483647'%3B%0A%20%20const%20sh%20%3D%20host.attachShadow(%7B%20mode%3A%20'open'%20%7D)%3B%0A%20%20const%20css%20%3D%20new%20CSSStyleSheet()%3B%0A%20%20css.replaceSync(%60%0A%20%20%20%20.p%20%7B%20font%3A%2013px%20system-ui%2C%20sans-serif%3B%20width%3A%20220px%3B%20padding%3A%2012px%3B%20background%3A%20%23fff%3B%20color%3A%20%23222%3B%0A%20%20%20%20%20%20%20%20%20border%3A%201px%20solid%20%23ccc%3B%20border-radius%3A%208px%3B%20box-shadow%3A%200%204px%2016px%20rgba(0%2C0%2C0%2C.25)%3B%20%7D%0A%20%20%20%20label%20%7B%20display%3A%20block%3B%20margin-bottom%3A%2010px%3B%20%7D%0A%20%20%20%20input%20%7B%20width%3A%20100%25%3B%20%7D%0A%20%20%20%20.row%20%7B%20display%3A%20flex%3B%20gap%3A%206px%3B%20%7D%0A%20%20%20%20button%20%7B%20flex%3A%201%3B%20font%3A%20inherit%3B%20%7D%0A%20%20%20%20.x%20%7B%20position%3A%20absolute%3B%20top%3A%204px%3B%20right%3A%208px%3B%20flex%3A%20none%3B%20border%3A%200%3B%20background%3A%20none%3B%20cursor%3A%20pointer%3B%20font-size%3A%2016px%3B%20%7D%60)%3B%0A%20%20sh.adoptedStyleSheets%20%3D%20%5Bcss%5D%3B%0A%20%20sh.innerHTML%20%3D%20%60%3Cdiv%20class%3D%22p%22%3E%0A%20%20%20%20%3Cbutton%20class%3D%22x%22%20title%3D%22Schlie%C3%9Fen%22%3E%C3%97%3C%2Fbutton%3E%0A%20%20%20%20%3Clabel%3EGamma%20(Schatten)%3A%20%3Coutput%20id%3D%22go%22%3E%3C%2Foutput%3E%3Cinput%20id%3D%22g%22%20type%3D%22range%22%20min%3D%220.3%22%20max%3D%224%22%20step%3D%220.05%22%3E%3C%2Flabel%3E%0A%20%20%20%20%3Clabel%3EHelligkeit%3A%20%3Coutput%20id%3D%22bo%22%3E%3C%2Foutput%3E%25%3Cinput%20id%3D%22b%22%20type%3D%22range%22%20min%3D%220%22%20max%3D%22300%22%3E%3C%2Flabel%3E%0A%20%20%20%20%3Clabel%3EKontrast%3A%20%3Coutput%20id%3D%22co%22%3E%3C%2Foutput%3E%25%3Cinput%20id%3D%22c%22%20type%3D%22range%22%20min%3D%220%22%20max%3D%22300%22%3E%3C%2Flabel%3E%0A%20%20%20%20%3Cdiv%20class%3D%22row%22%3E%3Cbutton%20id%3D%22reset%22%3EZur%C3%BCcksetzen%3C%2Fbutton%3E%3Cbutton%20id%3D%22magic%22%3EMagic%3C%2Fbutton%3E%3C%2Fdiv%3E%0A%20%20%3C%2Fdiv%3E%60%3B%0A%20%20const%20%24%20%3D%20id%20%3D%3E%20sh.getElementById(id)%3B%0A%20%20const%20g%20%3D%20%24('g')%2C%20b%20%3D%20%24('b')%2C%20c%20%3D%20%24('c')%3B%0A%0A%20%20g.value%20%3D%20parseFloat(rs.getPropertyValue('--icf-gv'))%20%7C%7C%201%3B%0A%20%20b.value%20%3D%20parseInt(rs.getPropertyValue('--icf-b'))%20%7C%7C%20100%3B%0A%20%20c.value%20%3D%20parseInt(rs.getPropertyValue('--icf-c'))%20%7C%7C%20100%3B%0A%0A%20%20function%20apply()%20%7B%0A%20%20%20%20%24('go').value%20%3D%20(%2Bg.value).toFixed(2)%3B%0A%20%20%20%20%24('bo').value%20%3D%20b.value%3B%0A%20%20%20%20%24('co').value%20%3D%20c.value%3B%0A%20%20%20%20setVars(%2Bg.value%2C%20b.value%2C%20c.value)%3B%0A%20%20%7D%0A%20%20g.oninput%20%3D%20b.oninput%20%3D%20c.oninput%20%3D%20apply%3B%0A%20%20%24('reset').onclick%20%3D%20()%20%3D%3E%20%7B%20g.value%20%3D%201%3B%20b.value%20%3D%20c.value%20%3D%20100%3B%20apply()%3B%20%7D%3B%0A%20%20%24('magic').onclick%20%3D%20()%20%3D%3E%20%7B%20g.value%20%3D%202.5%3B%20b.value%20%3D%20100%3B%20c.value%20%3D%20120%3B%20apply()%3B%20%7D%3B%0A%20%20sh.querySelector('.x').onclick%20%3D%20()%20%3D%3E%20host.remove()%3B%0A%20%20apply()%3B%0A%20%20root.append(host)%3B%0A%7D)()%3B%0A">🍏 DarkImagePeek</a></p>
+  <p>Lesezeichenleiste nicht sichtbar? <kbd>Strg</kbd>+<kbd>Umschalt</kbd>+<kbd>B</kbd> (Mac: <kbd>⌘</kbd>+<kbd>Umschalt</kbd>+<kbd>B</kbd>) blendet sie in Chrome, Edge und Firefox ein.</p>
+  <p>Ziehen geht nicht (z.&nbsp;B. am Handy)? Code kopieren, ein beliebiges Lesezeichen anlegen und den kopierten Code als Adresse (URL) eintragen:</p>
+  <p><button id="copy" type="button">Bookmarklet-Code kopieren</button> <span id="copied" aria-live="polite"></span></p>
+</div>
+<p><strong>Benutzen:</strong> Seite mit dunklen Bildern öffnen, Lesezeichen anklicken – rechts oben erscheint das Panel. Erneut klicken oder <strong>×</strong> schließt das Panel; die Einstellung bleibt bis zum Neuladen der Seite erhalten.</p>
+<p><strong>Grenzen:</strong> Bilder in eingebetteten Rahmen (iframes) erreicht das Bookmarklet nicht. Einige wenige Seiten blockieren Bookmarklets durch ihre Sicherheitsregeln – dann hilft die Erweiterung.</p>
+
+<h2 id="erweiterung">Browser-Erweiterung</h2>
+<p>Die Erweiterung kann dasselbe wie das Bookmarklet, wirkt zusätzlich in iframes und sitzt als Apfel-Symbol in der Symbolleiste.</p>
+<ul>
+  <li><strong>Chrome / Edge:</strong> Veröffentlichung im Chrome Web Store ist in Vorbereitung.</li>
+  <li><strong>Firefox (ab Version 142):</strong> Veröffentlichung auf addons.mozilla.org ist in Vorbereitung.</li>
+</ul>
+<details>
+  <summary>Bis dahin: manuell installieren</summary>
+  <ol>
+    <li>Auf <a href="https://github.com/Nitram2345/DarkImagePeek">GitHub</a> über <em>Code → Download ZIP</em> herunterladen und entpacken.</li>
+    <li><strong>Chrome/Edge:</strong> <code>chrome://extensions</code> öffnen, <em>Entwicklermodus</em> einschalten, <em>Entpackte Erweiterung laden</em> und den entpackten Ordner wählen.</li>
+    <li><strong>Firefox:</strong> <code>about:debugging#/runtime/this-firefox</code> öffnen, <em>Temporäres Add-on laden</em> und die Datei <code>manifest.json</code> wählen. (Temporär = nach Neustart weg.)</li>
+  </ol>
+</details>
+<p>Im Inkognito-/Privatmodus muss die Erweiterung erst in den Erweiterungs-Einstellungen freigegeben werden.</p>
+
+<h2 id="bedienung">Bedienung</h2>
+<table>
+  <tr><th>Regler / Knopf</th><th>Wirkung</th></tr>
+  <tr><td>Gamma (Schatten)</td><td>0.3–4. Werte über 1 hellen vor allem dunkle Bereiche auf, ohne helle Stellen auszubrennen. Meist der wichtigste Regler.</td></tr>
+  <tr><td>Helligkeit</td><td>0–300&nbsp;%. Hellt das ganze Bild gleichmäßig auf.</td></tr>
+  <tr><td>Kontrast</td><td>0–300&nbsp;%. Nach dem Aufhellen etwas mehr Kontrast macht Strukturen wieder deutlicher.</td></tr>
+  <tr><td>Magic</td><td>Bewährte Einstellung für dunkle Fotos: Gamma 2.5, Helligkeit 100&nbsp;%, Kontrast 120&nbsp;%.</td></tr>
+  <tr><td>Zurücksetzen</td><td>Originalbilder: Gamma 1, Helligkeit 100&nbsp;%, Kontrast 100&nbsp;%.</td></tr>
+</table>
+<p>Die Änderungen wirken sofort auf alle Bilder und Videos der Seite, auch auf nachgeladene. Tipp: Erst <em>Magic</em> drücken, dann mit Gamma nachjustieren.</p>
+
+<h2 id="faq">Häufige Fragen</h2>
+<p><strong>Werden Daten gesammelt?</strong><br>Nein. DarkImagePeek sendet nichts ins Netz, speichert nichts und braucht nur die Berechtigung, nach Klick auf den aktuellen Tab zuzugreifen.</p>
+<p><strong>Werden die Bilder verändert?</strong><br>Nein, nur die Darstellung in deinem Browser. Neu laden stellt den Originalzustand her.</p>
+<p><strong>Manche Bilder ändern sich nicht.</strong><br>Hintergrundbilder (per CSS gesetzt) werden bewusst nicht gefiltert, da sonst der ganze Seitenbereich mit verändert würde.</p>
+<p><strong>Muss ich die Werte auf jeder Seite neu einstellen?</strong><br>Ja, die Einstellung gilt nur für die aktuelle Seite bis zum Neuladen.</p>
+
+<footer>DarkImagePeek · Quellcode und Fehlermeldungen auf <a href="https://github.com/Nitram2345/DarkImagePeek">GitHub</a></footer>
+</main>
+<script>
+  const bm = document.getElementById('bm');
+  bm.onclick = e => { e.preventDefault(); alert('Bitte den Knopf in die Lesezeichenleiste ziehen, nicht anklicken.'); };
+  document.getElementById('copy').onclick = async () => {
+    const out = document.getElementById('copied');
+    try { await navigator.clipboard.writeText(bm.href); out.textContent = 'Kopiert ✓'; }
+    catch { out.textContent = 'Kopieren nicht möglich – Knopf lange drücken und Link kopieren.'; }
+  };
+</script>
+</body>
+</html>
