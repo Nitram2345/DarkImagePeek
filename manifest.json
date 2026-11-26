@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "DarkImagePeek",
+  "version": "1.0",
+  "description": "Dunkle Bilder auf Webseiten live aufhellen: Gamma, Helligkeit und Kontrast.",
+  "permissions": ["activeTab", "scripting"],
+  "icons": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png" },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "DarkImagePeek",
+    "default_icon": { "16": "icons/icon16.png", "32": "icons/icon32.png" }
+  },
+  "browser_specific_settings": { "gecko": { "id": "darkimagepeek@local", "strict_min_version": "109.0", "data_collection_permissions": { "required": ["none"] } } }
+}
