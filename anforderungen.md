@@ -31,7 +31,10 @@ Bilder auf Webseiten, die zu dunkel sind und Details verschlucken (Ausgangsfall:
 | N5 | Bei Gamma = 1 kein SVG-Filter aktiv (fehlender Filter darf Bilder nicht ausblenden) | ✅ |
 | N6 | Nutzbar im Inkognito-/Privatmodus (nach Freigabe durch Nutzer) | ✅ |
 | N7 | Keine Abhängigkeiten, kein Build-Schritt für die Erweiterung | ✅ |
-| N8 | Veröffentlichung im Chrome Web Store und auf addons.mozilla.org | offen |
+| N8 | Veröffentlichung im Chrome Web Store und auf addons.mozilla.org | eingereicht (Prüfung läuft) |
+| N9 | Hilfeseite mit Bookmarklet zum Ziehen und Vorher/Nachher-Vergleich, veröffentlicht über GitHub Pages (`public/`) | ✅ |
+| N10 | Open Source unter GPL-3.0 | ✅ |
+| N11 | Store-Paket per `make.bat` (ZIP mit Vorwärts-Slash-Pfaden, Version aus `manifest.json`) | ✅ |
 
 ## Bewusst nicht umgesetzt
 
@@ -45,6 +48,6 @@ Bilder auf Webseiten, die zu dunkel sind und Details verschlucken (Ausgangsfall:
 
 ## Offene Punkte
 
-- GitHub Pages aktivieren: Settings → Pages → Source „GitHub Actions“ (Hilfeseite aus `public/`).
-- Store-Texte und Screenshots erstellen.
-- Manueller Test der installierten Erweiterung in Chrome und Firefox sowie des Bookmarklets per echtem Lesezeichen-Klick.
+- Store-Prüfung abwarten; danach Store-Links auf der Hilfeseite statt „in Vorbereitung“ eintragen.
+- Manueller Test der Erweiterung in Firefox und des Bookmarklets per echtem Lesezeichen-Klick. (Chrome getestet, inkl. Videos auf YouTube.)
+- Vor jedem Store-Update `version` in `manifest.json` erhöhen und `make.bat` ausführen.
