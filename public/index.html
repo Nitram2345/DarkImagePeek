@@ -26,6 +26,10 @@
   table { border-collapse: collapse; width: 100%; }
   th, td { text-align: left; padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
   nav a { margin-right: 12px; }
+  .compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+  .compare figure { margin: 0; }
+  .compare img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; }
+  figcaption { color: var(--muted); font-size: .9rem; margin-top: 4px; text-align: center; }
   footer { margin-top: 48px; color: var(--muted); font-size: .9rem; }
 </style>
 </head>
@@ -78,7 +82,11 @@
 <p>Im Inkognito-/Privatmodus muss die Erweiterung erst in den Erweiterungs-Einstellungen freigegeben werden.</p>
 
 <h2 id="bedienung">Bedienung</h2>
-<p><img src="screenshot.png" width="640" height="400" alt="Popup von DarkImagePeek mit Reglern für Gamma, Helligkeit und Kontrast über einem aufgehellten, ursprünglich sehr dunklen Gemälde" style="max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px"></p>
+<div class="compare">
+  <figure><img src="screenshot-original.png" width="581" height="394" alt="Original: sehr dunkles Gemälde, Gesicht und Kleidung des Mannes kaum zu erkennen"><figcaption>Vorher (Original)</figcaption></figure>
+  <figure><img src="screenshot.png" width="640" height="400" alt="Mit DarkImagePeek: dasselbe Gemälde deutlich aufgehellt, daneben das Popup mit Gamma 2.50, Helligkeit 100 %, Kontrast 120 %"><figcaption>Nachher (Magic)</figcaption></figure>
+</div>
+<p style="color:var(--muted);font-size:.9rem">Gemälde: Georges de La Tour, „Der heilige Josef als Zimmermann“ (um 1642, gemeinfrei).</p>
 <table>
   <tr><th>Regler / Knopf</th><th>Wirkung</th></tr>
   <tr><td>Gamma (Schatten)</td><td>0.3–4. Werte über 1 hellen vor allem dunkle Bereiche auf, ohne helle Stellen auszubrennen. Meist der wichtigste Regler.</td></tr>
